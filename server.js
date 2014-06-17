@@ -1,53 +1,39 @@
-var express = require('express');
-var path = require('path');
-// var favicon = require('static-favicon');
- var logger = require('morgan');
-// var cookieParser = require('cookie-parser');
-// var bodyParser = require('body-parser');
+var Show, User, app, bcrypt, bodyParser, cookieParser, express, logger, mongoose, path;
 
-var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
+express = require('express');
 
+path = require('path');
 
-var Show = require('./models/show');
-var User = require('./models/user');
+logger = require('morgan');
+
+mongoose = require('mongoose');
+
+bcrypt = require('bcryptjs');
+
+bodyParser = require('body-parser');
+
+cookieParser = require('cookie-parser');
+
+Show = require('./model/show');
+
+User = require('./model/user');
 
 mongoose.connect('localhost');
 
-var app = express();
+app = express();
 
-app.set('port', process.env.PORT || 3001);
-//app.use(favicon());
+app.set('port', process.env.PORT || 3002);
+
 app.use(logger('dev'));
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded());
-//app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(app.get('port'), function (){
- console.log('Express server on port: ' + app.get('port'));
-})
+app.use(bodyParser.json());
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
+app.use(bodyParser.urlencoded());
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function( err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
+app.use(cookieParser);
 
-module.exports = app;
+app.use(express["static"](path.join(__dirname, 'public')));
+
+app.listen(app.get('port', function() {
+  console.log('Express at port ' + app.get('port'));
+}));
