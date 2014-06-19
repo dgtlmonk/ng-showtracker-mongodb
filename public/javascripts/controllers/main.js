@@ -5,6 +5,7 @@ angular.module('MyApp').controller('MainCtrl', [
     $scope.headingTitle = 'Top 12 Shows';
     $scope.shows = Show.query();
     $scope.filterByGenre = function(genre) {
+      console.log('test');
       $scope.shows = Show.query({
         genre: genre
       });

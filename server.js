@@ -1,4 +1,4 @@
-var Show, User, app, bcrypt, bodyParser, cookieParser, express, logger, mongoose, path;
+var Show, User, app, bcrypt, bodyParser, cookieParser, express, logger, mongoose, path, port;
 
 express = require('express');
 
@@ -14,15 +14,15 @@ bodyParser = require('body-parser');
 
 cookieParser = require('cookie-parser');
 
-Show = require('./model/show');
+Show = require('./models/show');
 
-User = require('./model/user');
+User = require('./models/user');
 
 mongoose.connect('localhost');
 
 app = express();
 
-app.set('port', process.env.PORT || 3002);
+port = process.env.PORT || 3003;
 
 app.use(logger('dev'));
 
@@ -34,6 +34,6 @@ app.use(cookieParser);
 
 app.use(express["static"](path.join(__dirname, 'public')));
 
-app.listen(app.get('port', function() {
-  console.log('Express at port ' + app.get('port'));
-}));
+app.listen(port, function() {
+  return console.log('Ok Express started at port ' + port);
+});

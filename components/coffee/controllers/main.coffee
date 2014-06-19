@@ -19,6 +19,7 @@ angular.module 'MyApp'
         $scope.shows = Show.query()
 
         $scope.filterByGenre = (genre) ->
+            console.log 'test'
             $scope.shows = Show.query({ genre: genre })
             $scope.headingTitle = genre
       
@@ -30,5 +31,6 @@ angular.module 'MyApp'
 
         return
     ]
+
 
 
